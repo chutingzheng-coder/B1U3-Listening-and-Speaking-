@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Teen Talk · Unit 3 Listening &amp; Speaking</title>
+<style>
+ :root{--ink:#1c2b25;--mut:#5c6f66;--grn:#2f7d5b;--grn2:#1c6b45;--line:#dfe7e2;--bg:#f5f8f6}
+ *{box-sizing:border-box}
+ body{margin:0;font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);display:flex;min-height:100vh;align-items:center;justify-content:center;padding:32px}
+ .wrap{width:100%;max-width:720px}
+ .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn2);font-weight:800}
+ h1{font-size:30px;line-height:1.18;margin:10px 0 6px}
+ p.lead{color:var(--mut);margin:0 0 24px}
+ a.card{display:flex;gap:16px;align-items:center;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 2px rgba(16,40,30,.04);transition:transform .12s,border-color .12s,box-shadow .12s}
+ a.card:hover{transform:translateY(-2px);border-color:var(--grn);box-shadow:0 8px 22px rgba(16,40,30,.09)}
+ .n{width:44px;height:44px;flex:0 0 44px;border-radius:12px;background:#eef6f1;color:var(--grn2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px}
+ .t{font-weight:800;font-size:17px}
+ .s{color:var(--mut);font-size:13.5px}
+ .arrow{margin-left:auto;color:var(--grn);font-weight:800;font-size:18px;padding-left:8px}
+ #codechip{display:none;margin:0 0 18px;padding:11px 14px;border-radius:12px;background:#eef6f1;border:1px solid #cfe4d4;color:#1c6b45;font-size:14px;font-weight:700}
+ .note{margin-top:22px;font-size:12.5px;color:var(--mut);border-top:1px solid var(--line);padding-top:14px}
+ @media (max-width:520px){h1{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Unit 3 · Listening &amp; Speaking</div>
+  <h1>Teen Talk &mdash; pocket money</h1>
+  <p class="lead">Two pages for one lesson. Students open the student page; the teacher opens the teacher page in a second window to watch the live class view.</p>
+  <p id="codechip"></p>
+  <a class="card" id="lnk-student" href="student.html">
+    <span class="n">S</span>
+    <span><span class="t">Student page &middot; 学生端</span><br><span class="s">Tasks 1&ndash;5: listening, class survey, speaking + peer checklist</span></span>
+    <span class="arrow">&rarr;</span>
+  </a>
+  <a class="card" id="lnk-teacher" href="teacher.html">
+    <span class="n">T</span>
+    <span><span class="t">Teacher page &middot; 教师端</span><br><span class="s">Live class view: survey results, peer sheets, speaking roles</span></span>
+    <span class="arrow">&rarr;</span>
+  </a>
+  <div class="note">Keep the file names <b>student.html</b> and <b>teacher.html</b> and this link never changes. Enter the same class code on both pages to switch the live view on.</div>
+</div>
+<script>
+(function(){
+  var c='';try{c=(new URLSearchParams(location.search).get('code')||'').trim().toUpperCase();}catch(e){}
+  if(!c)return;
+  var chip=document.getElementById('codechip');
+  if(chip){chip.textContent='Class code '+c+' will be filled in for you';chip.style.display='block';}
+  var s=document.getElementById('lnk-student');if(s)s.href='student.html?code='+encodeURIComponent(c);
+  var t=document.getElementById('lnk-teacher');if(t)t.href='teacher.html?code='+encodeURIComponent(c);
+})();
+</script>
+</body>
+</html>

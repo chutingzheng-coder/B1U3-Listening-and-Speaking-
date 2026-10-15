@@ -26,10 +26,11 @@ header.topbar{
   background:linear-gradient(100deg,var(--green2),var(--green) 55%,#2f8a6a);
   color:#fff; padding:11px 22px 0; box-shadow:0 6px 18px rgba(20,60,40,.22);
 }
-.tb-inner{max-width:1240px;margin:0 auto}
+.tb-inner{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;column-gap:26px;row-gap:8px}
+.tb-left{min-width:0;padding-right:4px}
 .eyebrow{font-size:14.8px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;font-weight:600}
 h1.title{font-size:29.5px;margin:2px 0 8px;font-weight:800;letter-spacing:.2px}
-nav.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;padding-bottom:12px}
+nav.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;padding-bottom:12px;flex:1 0 100%}
 nav.tabs button{
   font:inherit;font-size:16.5px;font-weight:700;cursor:pointer;
   border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);
@@ -177,8 +178,11 @@ details .body li{margin-bottom:4px}
 .conn.good{background:#e9f7ee;color:#1c6b45;border-color:#b9e2c8}
 .conn.bad{background:#fdecea;color:#a8352a;border-color:#f3c6bf}
 .conn.warn{background:#fff7e6;color:#8a6408;border-color:#f0dfae}
-.joinbar{position:sticky;top:0;z-index:60;background:linear-gradient(100deg,#f2f9f4,#ffffff);border:1px solid #dbe8dc;border-radius:14px;padding:12px;box-shadow:0 6px 18px rgba(23,58,43,.06)}
-.joinbar .inputrow{margin-top:0}
+.joinbar{flex:0 1 auto;min-width:0;max-width:100%;margin:0;background:linear-gradient(100deg,#f2f9f4,#ffffff);border:1px solid rgba(255,255,255,.65);border-radius:12px;padding:10px 12px;box-shadow:0 4px 14px rgba(20,60,40,.16);color:var(--ink)}
+@media (max-width:760px){.joinbar{flex:1 1 100%;min-width:0;max-width:100%;margin-top:6px;padding:8px 10px}.joinbar .inputrow{gap:6px;flex-wrap:nowrap}.joinbar #j-code{max-width:none!important;flex:0 0 84px;min-width:58px;padding:7px 8px;font-size:15px}.joinbar #j-name{max-width:none!important;flex:1 1 96px;min-width:66px;padding:7px 8px;font-size:15px}.joinbar #j-go{flex:0 0 auto;padding:7px 12px;font-size:15px}.joinbar #conn{display:none}.joinbar .hint{margin:0 0 0 6px;font-size:12.4px}.joinbar .inputrow:has(#j-hint:not(:empty)){flex-wrap:wrap}h1.title{font-size:23px;margin:2px 0 4px}.topbar .eyebrow{font-size:12px;letter-spacing:.10em}nav.tabs{margin-top:6px;padding-bottom:8px;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}nav.tabs::-webkit-scrollbar{display:none}nav.tabs button{font-size:14.4px;padding:6px 12px}}
+.joinbar .inputrow{margin-top:0;align-items:center;flex-wrap:nowrap}
+.joinbar .hint{flex:0 0 auto;margin:0 0 0 8px;font-size:13px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;color:#2f6b4a;font-weight:700}
+.joinbar .hint:empty{display:none}
 .livebar{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .livebar .code{font-size:17.7px;font-weight:800;color:var(--green2)}
 .livebar .code b{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:24.8px;letter-spacing:.10em;color:var(--green)}
@@ -214,9 +218,20 @@ window.embeddedAudioSrc=function(){if(window.__audBlob)return window.__audBlob;t
 
 <header class="topbar">
   <div class="tb-inner">
-    <div class="eyebrow">Book 1 · Unit 3 Paying the price</div>
-    <h1 class="title">C · Listening &amp; Speaking</h1>
-    <div class="eyebrow" style="font-size:11.5px;margin-top:1px">Student page · join with the class code</div>
+    <div class="tb-left">
+      <div class="eyebrow">Book 1 · Unit 3 Paying the price</div>
+      <h1 class="title">C · Listening &amp; Speaking</h1>
+      <div class="eyebrow" style="font-size:11.5px;margin-top:1px">Student page · join with the class code</div>
+    </div>
+    <div class="card joinbar" id="joinbar">
+      <div class="inputrow">
+        <input type="text" id="j-code" placeholder="Class code" style="max-width:170px;text-transform:uppercase" autocomplete="off">
+        <input type="text" id="j-name" placeholder="Your name / number" style="max-width:240px" autocomplete="off">
+        <button class="btn primary" id="j-go">Join</button>
+        <span class="conn" id="conn">Not connected</span>
+        <span class="hint" id="j-hint"></span>
+      </div>
+    </div>
     <nav class="tabs" id="tabs">
       <button data-t="t1" class="active">1 · Warm-up</button>
       <button data-t="t2">2 · First listening</button>
@@ -228,16 +243,6 @@ window.embeddedAudioSrc=function(){if(window.__audBlob)return window.__audBlob;t
 </header>
 
 <main>
-
-<div class="card joinbar" id="joinbar">
-  <div class="inputrow">
-    <input type="text" id="j-code" placeholder="Class code" style="max-width:170px;text-transform:uppercase" autocomplete="off">
-    <input type="text" id="j-name" placeholder="Your name / number" style="max-width:240px" autocomplete="off">
-    <button class="btn primary" id="j-go">Join</button>
-    <span class="conn" id="conn">Not connected</span>
-  </div>
-  <div class="hint" id="j-hint" style="margin-top:8px">Ask your teacher for the class code, then join to send your answers.</div>
-</div>
 
 <!-- ============ TASK 1 ============ -->
 <section id="t1" class="module active">
@@ -1103,7 +1108,7 @@ function syncReady(){
       SYNC.code=code;SYNC.sid=name;SYNC.sidKey=sanitizeId(name);
       try{localStorage.setItem('u3ls_code',code);localStorage.setItem('u3ls_name',name);}catch(e){}
       var h=document.getElementById('j-hint');
-      if(h)h.innerHTML='Joined as <b>'+escSync(name)+'</b> — you can now send your answers to your teacher.';
+      if(h)h.innerHTML='Joined as <b>'+escSync(name)+'</b>.';
       if(typeof tableData!=='undefined'&&tableData[SYNC.sidKey]&&tableData[SYNC.sidKey].cells)t3Fill(tableData[SYNC.sidKey].cells);
       syncStart();
     }
